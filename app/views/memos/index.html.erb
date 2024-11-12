@@ -1,0 +1,25 @@
+<% if user_signed_in? %>
+<!--<% markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true) %>-->
+<% require 'markdown_checkboxes'
+
+markdown = CheckboxMarkdown.new(Redcarpet::Render::HTML, autolink: true, tables: true) %>
+<div style="margin: 0 auto;width: 600px; height: 100%">
+<%= render "layouts/new" %>
+  <% current_user.memos.each do |memo| %>
+      <div class="card" >
+        <div class="card-content">
+          <div class="content">
+            <%= raw markdown.render(memo.body) %>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <div class="card-footer-item right">
+            <%= button_to memo_path(memo), :action => "destroy", :method => :delete, :class => "button right is-danger", data: { turbo_confirm: "Are you sure you want to delete?" } do %>
+              <i class="fa-regular fa-trash-can"></i>
+            <% end %>
+          </div>
+        </footer>
+      </div>
+  <% end %>
+</div>
+<% end %>

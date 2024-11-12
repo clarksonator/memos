@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+  <head>
+    <title><%= content_for(:title) || "Memos" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <!--<link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">-->
+    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= favicon_link_tag 'favicon.png' %>
+  </head>
+
+  <body>
+    <%= render "layouts/header" %>
+    <% if notice %>
+    <div id="notice" class="notification is-warning"> 
+      <p class="notice"><%= notice %></p>
+    </div>
+    <script>
+      (function() {
+        setTimeout(hide,1000);
+      })();
+      function hide() {
+        document.getElementById('notice').style.display='none';
+      }
+    </script>
+    <% end %>
+    <% if alert %>
+    <div class="notification is-danger">
+      <button class="delete" onclick="this.parentElement.style.display='none'" ></button>
+      <p class="alert"><%= alert %></p>
+    </div>
+    <% end %>
+    <div class="container disable-scrollbars" style="overflow-y: scroll; height: 100%">
+      <%= yield %>
+    </div>
+  </body>
+</html>

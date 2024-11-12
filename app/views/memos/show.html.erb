@@ -1,0 +1,17 @@
+<% markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true) %>
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title"><%= @memo.title %></p>
+    </header>
+    <div class="card-content">
+        <div class="content">
+            <%= raw markdown.render(@memo.body) %>
+
+            <%= button_to "Destroy", memo_path(@memo), data: {
+                                                         turbo_method: :delete,
+                                                         turbo_confirm: "Are you sure?",
+                                                       }, :class => "button is-danger right" %>
+        </div>
+    </div>
+</div>
+                                             
