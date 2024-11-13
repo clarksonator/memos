@@ -6,7 +6,7 @@
     <div class="content">
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "input", :placeholder => "email" %>
+    <%= f.text_field :username, autofocus: true, autocomplete: "username", :class => "input", :placeholder => "username" %>
   </div>
 
   <div class="field">

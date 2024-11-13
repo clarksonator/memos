@@ -1,4 +1,4 @@
-class MemosController < ApplicationController
+ class MemosController < ApplicationController
   def index
     @memos = Memo.all
   end
@@ -12,11 +12,10 @@ class MemosController < ApplicationController
   end
 
   def create
-    #@memo = Memo.new(memo_params)
     @memo = current_user.memos.build(memo_params)
 
     if @memo.save
-      redirect_to action: 'index'
+      redirect_to action: "index"
     else
       render :new, status: :unprocessable_entity
     end
@@ -34,4 +33,4 @@ class MemosController < ApplicationController
   def memo_params
     params.require(:memo).permit(:title, :body)
   end
-end
+ end
