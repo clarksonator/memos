@@ -14,6 +14,10 @@
   def create
     @memo = current_user.memos.build(memo_params)
 
+     if @memo.attachment
+      print "file"
+    end
+
     if @memo.save
       redirect_to action: "index"
     else
@@ -31,6 +35,6 @@
   private
 
   def memo_params
-    params.require(:memo).permit(:title, :body)
+    params.require(:memo).permit(:title, :body, :attachment)
   end
  end

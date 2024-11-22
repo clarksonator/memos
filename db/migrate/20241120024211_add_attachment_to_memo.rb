@@ -1,0 +1,5 @@
+class AddAttachmentToMemo < ActiveRecord::Migration[8.0]
+  def change
+    add_column :memos, :attachment, :string
+  end
+end
