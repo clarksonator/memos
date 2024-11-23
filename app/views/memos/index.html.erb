@@ -1,8 +1,13 @@
 <% if user_signed_in? %>
-<!--<% markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true) %>-->
+<script>
+        function openModal() {
+            document.getElementById("modal1")
+                .classList.add("is-active");
+        }
+</script>
 <% require 'markdown_checkboxes'
 
-markdown = CheckboxMarkdown.new(Redcarpet::Render::HTML, autolink: true, tables: true) %>
+markdown = CheckboxMarkdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, fenced_code_blocks: true) %>
 <div style="margin: 0 auto;width: 600px; height: 100%">
 <%= render "layouts/new" %>
   <% current_user.memos.each do |memo| %>
@@ -10,6 +15,21 @@ markdown = CheckboxMarkdown.new(Redcarpet::Render::HTML, autolink: true, tables:
         <div class="card-content">
           <div class="content">
             <%= raw markdown.render(memo.body) %>
+            <% if memo.attachment != nil && memo.attachment != 0 %>
+                <div id="modal1" class="modal">
+            <div class="modal-background"></div>
+                <div class="modal-content">
+                    <p class="image is-1by1">
+                <img src="data:image/png;base64,<%= memo.attachment %>" />
+                    </p>
+ 
+                </div>
+            <button class="modal-close is-large"
+                    aria-label="close">
+            </button>
+        </div>
+                <img src="data:image/png;base64,<%= memo.attachment %>" style="width:200px" onclick="openModal();" />
+            <% end %>
           </div>
         </div>
         <footer class="card-footer">
@@ -22,4 +42,7 @@ markdown = CheckboxMarkdown.new(Redcarpet::Render::HTML, autolink: true, tables:
       </div>
   <% end %>
 </div>
+<script>
+  document.querySelectorAll('.modal-background, .modal-close,.modal-card-head .delete, .modal-card-foot .button').forEach(($el) => {const $modal = $el.closest('.modal');$el.addEventListener('click', () => {$modal.classList.remove("is-active");});});
+</script>
 <% end %>

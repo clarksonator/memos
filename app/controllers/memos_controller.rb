@@ -1,3 +1,5 @@
+require "base64"
+
  class MemosController < ApplicationController
   def index
     @memos = Memo.all
@@ -14,8 +16,10 @@
   def create
     @memo = current_user.memos.build(memo_params)
 
-     if @memo.attachment
-      print "file"
+    if @memo.attachment
+      attachmentFile = params[:memo][:attachment]
+      enc = Base64.encode64(attachmentFile.read)
+      @memo.attachment = enc
     end
 
     if @memo.save
