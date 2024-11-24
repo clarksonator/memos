@@ -10,8 +10,6 @@
     <%= yield :head %>
 
     <link rel="manifest" href="/manifest.json">
-    <!--<link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">-->
     <link rel="apple-touch-icon" href="/icon.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -43,6 +41,7 @@
     <% end %>
     <div class="container disable-scrollbars" style="overflow-y: scroll; height: 100%">
       <%= yield %>
+      <%= render "layouts/dialog" %>
     </div>
   </body>
 </html>

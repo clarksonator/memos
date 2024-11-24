@@ -66,6 +66,11 @@
    color: var(--ctp-frappe-crust);
  }
 
+ .button.is-warning {
+   background-color: var(--ctp-frappe-teal);
+   color: var(--ctp-frappe-crust);
+ }
+
  .button.is-save {
   background-color: var(--ctp-frappe-blue);
   color: var(--ctp-frappe-crust);
