@@ -46,6 +46,10 @@
    height: 100%;
  }
 
+  .card-content .content h2 {
+    color: var(--ctp-frappe-flamingo);
+  }
+
  .right {
    display: block;
    margin-left: auto;
