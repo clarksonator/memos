@@ -7,14 +7,16 @@
 </script>
 <% require 'markdown_checkboxes'
 
-markdown = CheckboxMarkdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, fenced_code_blocks: true) %>
+#markdown = CheckboxMarkdown.new(CustomRender, autolink: true, tables: true, fenced_code_blocks: true) 
+#markdown = Redcarpet::Markdown.new(CustomRender, fenced_code_blocks: true)
+%>
 <div style="margin: 0 auto;width: 600px; height: 100%">
 <%= render "layouts/new" %>
   <% current_user.memos.each do |memo| %>
       <div class="card" >
         <div class="card-content">
           <div class="content">
-            <%= raw markdown.render(memo.body) %>
+            <%= raw renderMarkdown(memo.body) %>
             <% if memo.attachment != nil && memo.attachment != 0 %>
                 <div id="modal1" class="modal">
             <div class="modal-background"></div>
