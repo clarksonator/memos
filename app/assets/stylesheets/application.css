@@ -108,6 +108,10 @@
   color: var(--ctp-frappe-subtext0) !important;
 }
 
+.updateMemo, #saveMemo, #cancelEdit {
+  display: none;
+}
+
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 .highlight {

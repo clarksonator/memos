@@ -10,31 +10,41 @@
 #markdown = CheckboxMarkdown.new(CustomRender, autolink: true, tables: true, fenced_code_blocks: true) 
 #markdown = Redcarpet::Markdown.new(CustomRender, fenced_code_blocks: true)
 %>
-<div style="margin: 0 auto;width: 600px; height: 100%">
+<div style="margin: 0 auto;width: 800px; height: 100%">
 <%= render "layouts/new" %>
   <% current_user.memos.each do |memo| %>
       <div class="card" >
-        <div class="card-content">
+        <div class="card-content viewMemo">
           <div class="content">
             <%= raw renderMarkdown(memo.body) %>
             <% if memo.attachment != nil && memo.attachment != 0 %>
                 <div id="modal1" class="modal">
-            <div class="modal-background"></div>
-                <div class="modal-content">
-                    <p class="image is-1by1">
-                <img src="data:image/png;base64,<%= memo.attachment %>" style="width:auto;height:auto" />
-                    </p>
- 
+                  <div class="modal-background"></div>
+                      <div class="modal-content">
+                          <p class="image is-1by1">
+                            <img src="data:image/png;base64,<%= memo.attachment %>" style="width:auto;height:auto" />
+                          </p> 
+                      </div>
+                  <button class="modal-close is-large" aria-label="close" />
                 </div>
-            <button class="modal-close is-large"
-                    aria-label="close">
-            </button>
+                <img src="data:image/png;base64,<%= memo.attachment %>" style="width:200px" onclick="openModal();" />
+            <% end %>
+          </div>
         </div>
+        <div class="card-content updateMemo">
+          <div class="content">
+            <input type="hidden"><textarea class="textarea"><%= memo.body %></textarea></input>
+            <% if memo.attachment != nil && memo.attachment != 0 %>
                 <img src="data:image/png;base64,<%= memo.attachment %>" style="width:200px" onclick="openModal();" />
             <% end %>
           </div>
         </div>
         <footer class="card-footer">
+          <div class="card-footer-item left">
+            <button id="editMemo" class="button left" style="background-color:var(--ctp-frappe-peach);color:black;" ><i class="fa-regular fa-pen-to-square"></i></button>
+            <button id="saveMemo" class="button left" style="background-color:var(--ctp-frappe-blue);color:black;" ><i class="fa-regular fa-floppy-disk"></i></button>
+            <button id="cancelEdit" class="button left" style="background-color:var(--ctp-frappe-maroon);color:black;" ><i class="fa-solid fa-ban"></i></button>
+          </div>
           <div class="card-footer-item right">
             <%= button_to memo_path(memo), :action => "destroy", :method => :delete, :class => "button right is-danger", data: { turbo_confirm: "Are you sure you want to delete?" } do %>
               <i class="fa-regular fa-trash-can"></i>
@@ -46,5 +56,22 @@
 </div>
 <script>
   document.querySelectorAll('.modal-background, .modal-close,.modal-card-head .delete, .modal-card-foot .button').forEach(($el) => {const $modal = $el.closest('.modal');$el.addEventListener('click', () => {$modal.classList.remove("is-active");});});
+
+  $("#editMemo").on("click", function() {
+    $(this).parent().children("#saveMemo").show();
+    $(this).parent().children("#cancelEdit").show();
+    $(this).parent().children("#editMemo").hide();
+    var card = $(this).parent().parent().parent();
+    card.children(".viewMemo").hide();
+    card.children(".updateMemo").show();
+  });
+  $("#cancelEdit").on("click", function() {
+    $(this).parent().children("#saveMemo").hide();
+    $(this).parent().children("#cancelEdit").hide();
+    $(this).parent().children("#editMemo").show();
+    var card = $(this).parent().parent().parent();
+    card.children(".viewMemo").show();
+    card.children(".updateMemo").hide();
+  });
 </script>
 <% end %>
