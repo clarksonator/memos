@@ -1,23 +1,18 @@
 <% if user_signed_in? %>
-<%= csrf_meta_tag %>
-<script>
+  <%= csrf_meta_tag %>
+  <script>
         function openModal() {
             document.getElementById("modal1")
                 .classList.add("is-active");
         }
-</script>
-<% require 'markdown_checkboxes'
-
-#markdown = CheckboxMarkdown.new(CustomRender, autolink: true, tables: true, fenced_code_blocks: true) 
-#markdown = Redcarpet::Markdown.new(CustomRender, fenced_code_blocks: true)
-%>
-<div style="margin: 0 auto;width: 800px; height: 100%">
-<%= render "layouts/new" %>
-  <% current_user.memos.each do |memo| %>
-      <%= render :partial => "layouts/memo", :object => memo %>
-  <% end %>
-</div>
-<script>
+  </script>
+  <div style="margin: 0 auto;width: 800px; height: 100%">
+    <%= render "layouts/new" %>
+    <% current_user.memos.each do |memo| %>
+      <%= render partial: "layouts/memo", object: memo %>
+    <% end %>
+  </div>
+  <script>
   document.querySelectorAll('.modal-background, .modal-close,.modal-card-head .delete, .modal-card-foot .button').forEach(($el) => {const $modal = $el.closest('.modal');$el.addEventListener('click', () => {$modal.classList.remove("is-active");});});
 
   $("#editMemo").on("click", function() {
@@ -41,14 +36,16 @@
     var url = card.children(".updateMemo").data('url');
     var body = card.find("#editMemoTA").val();
     $.ajax({
-    url: url,
-    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-    data: "memo%5Bbody%5D="+encodeURIComponent(body),
-    type: 'PUT',
-    success: function(result) {
-      console.log(result);
-    }
-});
+      url: url,
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+      data: "memo%5Bbody%5D="+encodeURIComponent(body),
+      dataType: "html",
+      type: 'PUT',
+      success: function(result) {
+        var memoDiv = card.parents("#memo");
+        memoDiv.replaceWith(result);
+      }
+    });
   });
-</script>
+  </script>
 <% end %>
