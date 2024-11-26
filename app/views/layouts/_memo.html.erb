@@ -1,0 +1,39 @@
+<div class="card" >
+        <div class="card-content viewMemo">
+          <div class="content">
+            <%= raw renderMarkdown(memo.body) %>
+            <% if memo.attachment != nil && memo.attachment != 0 %>
+                <div id="modal1" class="modal">
+                  <div class="modal-background"></div>
+                      <div class="modal-content">
+                          <p class="image is-1by1">
+                            <img src="data:image/png;base64,<%= memo.attachment %>" style="width:auto;height:auto" />
+                          </p> 
+                      </div>
+                  <button class="modal-close is-large" aria-label="close" />
+                </div>
+                <img src="data:image/png;base64,<%= memo.attachment %>" style="width:200px" onclick="openModal();" />
+            <% end %>
+          </div>
+        </div>
+        <div class="card-content updateMemo" data-url="<%= memo_path(memo.id) %>" >
+          <div class="content">
+            <input type="hidden"><textarea id="editMemoTA" class="textarea"><%= memo.body %></textarea></input>
+            <% if memo.attachment != nil && memo.attachment != 0 %>
+                <img src="data:image/png;base64,<%= memo.attachment %>" style="width:200px" onclick="openModal();" />
+            <% end %>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <div class="card-footer-item left">
+            <button id="editMemo" class="button left" style="background-color:var(--ctp-frappe-peach);color:black;" ><i class="fa-regular fa-pen-to-square"></i></button>
+            <button id="saveMemo" class="button left" style="background-color:var(--ctp-frappe-blue);color:black;" ><i class="fa-regular fa-floppy-disk"></i></button>
+            <button id="cancelEdit" class="button left" style="background-color:var(--ctp-frappe-maroon);color:black;" ><i class="fa-solid fa-ban"></i></button>
+          </div>
+          <div class="card-footer-item right">
+            <%= button_to memo_path(memo), :action => "destroy", :method => :delete, :class => "button right is-danger", data: { turbo_confirm: "Are you sure you want to delete?" } do %>
+              <i class="fa-regular fa-trash-can"></i>
+            <% end %>
+          </div>
+        </footer>
+      </div>

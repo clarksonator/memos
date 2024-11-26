@@ -36,6 +36,15 @@ require "base64"
     redirect_to root_path, status: :see_other
   end
 
+  def update
+      @memo = Memo.find params[:id]
+      @memo.update memo_params
+      respond_to do |format|
+        format.js { render partial: "layouts/memo", object: @memo }
+        format.html { render partial: "layouts/memo", object: @memo }
+      end
+  end
+
   private
 
   def memo_params
