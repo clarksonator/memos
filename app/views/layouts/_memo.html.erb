@@ -37,27 +37,31 @@
       </div>
     </div>
     <footer class="card-footer">
-      <div class="card-footer-item left">
-        <button
-          id="editMemo"
-          class="button left"
-          style="background-color:var(--ctp-frappe-peach);color:black;"
-        ><i class="fa-regular fa-pen-to-square"></i></button>
-        <button
-          id="saveMemo"
-          class="button left"
-          style="background-color:var(--ctp-frappe-blue);color:black;"
-        ><i class="fa-regular fa-floppy-disk"></i></button>
-        <button
-          id="cancelEdit"
-          class="button left"
-          style="background-color:var(--ctp-frappe-maroon);color:black;"
-        ><i class="fa-solid fa-ban"></i></button>
-      </div>
-      <div class="card-footer-item right">
-        <%= button_to memo_path(memo), :action => "destroy", :method => :delete, :class => "button right is-danger", data: { turbo_confirm: "Are you sure you want to delete?" } do %>
-          <i class="fa-regular fa-trash-can"></i>
-        <% end %>
+      <div class="card-footer-item" style="width: 100%">
+        <div
+          class="
+            is-flex is-justify-content-space-between is-align-items-center
+          "
+          style="width: 100%;"
+        >
+          <%= button_to memo_path(memo), :action => "destroy", :method => :delete, :class => "button is-danger", data: { turbo_confirm: "Are you sure you want to delete?" } do %>
+            <i class="fa-regular fa-trash-can"></i>
+          <% end %>
+          <div>
+            <button
+              class="button saveMemo"
+              style="background-color:var(--ctp-frappe-blue);color:black;"
+            ><i class="fa-regular fa-floppy-disk"></i></button>
+            <button
+              class="button cancelEdit"
+              style="background-color:var(--ctp-frappe-maroon);color:black;"
+            ><i class="fa-solid fa-ban"></i></button>
+          </div>
+          <button
+            class="editMemo button"
+            style="background-color:var(--ctp-frappe-peach);color:black;"
+          ><i class="fa-regular fa-pen-to-square"></i></button>
+        </div>
       </div>
     </footer>
   </div>

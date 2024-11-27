@@ -6,7 +6,7 @@
                 .classList.add("is-active");
         }
   </script>
-  <div style="margin: 0 auto;width: 800px; height: 100%">
+  <div class="memoIndex">
     <%= render "layouts/new" %>
     <% current_user.memos.each do |memo| %>
       <%= render partial: "layouts/memo", object: memo %>
@@ -15,24 +15,25 @@
   <script>
   document.querySelectorAll('.modal-background, .modal-close,.modal-card-head .delete, .modal-card-foot .button').forEach(($el) => {const $modal = $el.closest('.modal');$el.addEventListener('click', () => {$modal.classList.remove("is-active");});});
 
-  $("#editMemo").on("click", function() {
-    $(this).parent().children("#saveMemo").show();
-    $(this).parent().children("#cancelEdit").show();
-    $(this).parent().children("#editMemo").hide();
-    var card = $(this).parent().parent().parent();
+    function setupClicks() {
+  $(".editMemo").on("click", function() {
+    $(this).parent().find(".saveMemo").show();
+    $(this).parent().find(".cancelEdit").show();
+    var card = $(this).parents(".card");
     card.children(".viewMemo").hide();
     card.children(".updateMemo").show();
+    $(this).hide();
   });
-  $("#cancelEdit").on("click", function() {
-    $(this).parent().children("#saveMemo").hide();
-    $(this).parent().children("#cancelEdit").hide();
-    $(this).parent().children("#editMemo").show();
-    var card = $(this).parent().parent().parent();
+  $(".cancelEdit").on("click", function() {
+    $(this).parent().find(".saveMemo").hide();
+    $(this).parents().find(".editMemo").show();
+    var card = $(this).parents(".card");
     card.children(".viewMemo").show();
     card.children(".updateMemo").hide();
+    $(this).hide();
   });
-  $("#saveMemo").on("click", function() {
-    var card = $(this).parent().parent().parent();
+  $(".saveMemo").on("click", function() {
+    var card = $(this).parents(".card");
     var url = card.children(".updateMemo").data('url');
     var body = card.find("#editMemoTA").val();
     $.ajax({
@@ -44,8 +45,11 @@
       success: function(result) {
         var memoDiv = card.parents("#memo");
         memoDiv.replaceWith(result);
+        setupClicks();
       }
     });
   });
+    }
+  setupClicks();
   </script>
 <% end %>
