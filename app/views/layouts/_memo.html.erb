@@ -1,5 +1,6 @@
-<div id="memo">
-  <div class="card">
+<% @guid = (0...50).map { ('a'..'z').to_a[rand(26)] }.join %>
+  <div id="memo" hx-include="#<%= @guid %>" hx-target="this">
+  <div class="card" >
     <div class="card-content viewMemo">
       <div class="content">
         <%= raw renderMarkdown(memo.body) %>
@@ -22,11 +23,14 @@
             onclick="openModal();"
           />
         <% end %>
+        <% memo.tag_ids.each do |tagid| %>
+          <%= link_to "#" + (Tag.find(tagid)).name, search_memos_path + "/" + tagid.to_s %>
+        <% end %>
       </div>
     </div>
     <div class="card-content updateMemo" data-url="<%= memo_path(memo.id) %>">
       <div class="content">
-        <textarea id="editMemoTA" class="textarea"><%= memo.body %></textarea>
+        <textarea id='<%= @guid %>' name="memo[body]" class="textarea"><%= memo.body %></textarea>
         <% if memo.attachment != nil && memo.attachment != 0 %>
           <img
             src="data:image/png;base64,<%= memo.attachment %>"
@@ -48,10 +52,9 @@
             <i class="fa-regular fa-trash-can"></i>
           <% end %>
           <div>
-            <button
-              class="button saveMemo"
-              style="background-color:var(--ctp-frappe-blue);color:black;"
-            ><i class="fa-regular fa-floppy-disk"></i></button>
+            <button class="button saveMemo" style="background-color:var(--ctp-frappe-blue);color:black;" hx-put="<%= memo_path(memo.id) %>" >
+              <i class="fa-regular fa-floppy-disk"></i>
+            </button>
             <button
               class="button cancelEdit"
               style="background-color:var(--ctp-frappe-maroon);color:black;"

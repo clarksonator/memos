@@ -114,6 +114,7 @@ GEM
     erubi (1.13.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    htmx-rails (0.2.0)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.0.3)
@@ -345,6 +346,7 @@ DEPENDENCIES
   debug
   devise
   erb
+  htmx-rails
   importmap-rails
   jbuilder
   markdown_checkboxes (~> 1.0)

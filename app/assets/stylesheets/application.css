@@ -112,6 +112,10 @@ body {
   color: var(--ctp-frappe-text);
 }
 
+.box {
+  background-color: var(--ctp-frappe-surface1);
+}
+
 *::placeholder {
   /* modern browser */
   color: var(--ctp-frappe-subtext0) !important;

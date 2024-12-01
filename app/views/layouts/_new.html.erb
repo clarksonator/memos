@@ -1,29 +1,45 @@
 <%= form_for :memo, :url => url_for(:controller => "memos", :action => "create"), html: { class: "memo_form" } do |form| %>
   <div class="card" >
-        <div class="card-content">
-          <div class="content">
-            <div class="field">
-              <%= form.text_area :body, placeholder: "Memo", class: "textarea" %>
-            </div>
-          </div>
+    <div class="card-content">
+      <div class="content">
+        <div class="field">
+          <%= form.text_area :body, placeholder: "Memo", class: "textarea" %>
         </div>
-        <footer class="card-footer">
-          <div class="card-footer-item">
-            <div class="file" style="margin-bottom: 0">
-  <label class="file-label">
-            <%= form.file_field :attachment, accept: "image/png,image/jpg,image/jpeg", class: "file-input" %>
-    <span class="file-cta">
-      <span class="file-icon">
-        <i class="fas fa-upload"></i>
-      </span>
-      <span class="file-label"> Choose a file… </span>
-    </span>
-  </label>
-</div>
-            <%= button_tag type: 'submit', class: "button right is-save" do %>
-                <i class="fa-regular fa-floppy-disk" aria-hidden="true"></i>
-            <% end %>
-          </div>
-        </footer>
       </div>
+    </div>
+    <footer class="card-footer">
+      <div class="card-footer-item">
+        <div class="file" style="margin-bottom: 0">
+          <label class="file-label">
+            <%= form.file_field :attachment, accept: "image/png,image/jpg,image/jpeg", class: "file-input" %>
+            <span class="file-cta" style="background-color: var(--ctp-frappe-green)">
+              <i class="fas fa-upload" style="color: black"></i>
+            </span>
+          </label>
+        </div>
+        <%= button_tag type: 'button', class: "button", style: "background-color: var(--ctp-frappe-mauve); color: black;", onclick: "addTag();" do %>
+          <i class="fa-regular fa-hashtag" aria-hidden="true"></i>
+        <% end %>
+        <%= button_tag type: 'submit', class: "button right is-save" do %>
+          <i class="fa-regular fa-floppy-disk" aria-hidden="true"></i>
+        <% end %>
+      </div>
+    </footer>
+  </div>
+  <div id="addTagModal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="box">
+      <article class="media">
+        <%= form.text_field :tagName, placeholder: "Tags", class: "input" %>
+      </article>
+      </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+  <script>
+    function addTag(elem) {
+      $("#addTagModal").addClass("is-active");
+    }
+  </script>
 <% end %>

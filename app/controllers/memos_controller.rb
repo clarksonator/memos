@@ -5,6 +5,14 @@ require "base64"
     @memos = Memo.all
   end
 
+  def search
+    if params[:id]
+@memos = Memo.find_by_sql("SELECT * from memos INNER JOIN memos_tags on memos.id = memos_tags.memo_id where tag_id = " + params[:id])
+    else
+      @memos = Memo.all
+    end
+  end
+
   def show
     @memo = Memo.find(params[:id])
   end
@@ -14,7 +22,12 @@ require "base64"
   end
 
   def create
-    @memo = current_user.memos.build(memo_params)
+    @params = memo_params
+    if @params[:tagName]
+      @tagName = @params[:tagName]
+      @params.delete(:tagName)
+    end
+    @memo = current_user.memos.build(@params)
 
     if @memo.attachment
       attachmentFile = params[:memo][:attachment]
@@ -23,6 +36,13 @@ require "base64"
     end
 
     if @memo.save
+      if @tagName
+        # @tag = Tag.new(name: @tagName)
+        # @tag.save
+        # @memo.tags << @tag
+        @memo.tags.create!({ name: @tagName })
+      end
+
       redirect_to action: "index"
     else
       render :new, status: :unprocessable_entity
@@ -48,6 +68,6 @@ require "base64"
   private
 
   def memo_params
-    params.require(:memo).permit(:title, :body, :attachment)
+    params.require(:memo).permit(:title, :body, :attachment, :tagName)
   end
  end
