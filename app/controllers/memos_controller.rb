@@ -2,7 +2,13 @@ require "base64"
 
  class MemosController < ApplicationController
   def index
-    @memos = Memo.all
+    @tagid = params[:query]
+    if @tagid
+      puts @tagid
+      @memos = current_user.memos.find_by_sql("SELECT * from memos INNER JOIN memos_tags on memos.id = memos_tags.memo_id where tag_id = " + @tagid)
+    else
+      @memos = current_user.memos 
+    end
   end
 
   def search
@@ -23,7 +29,7 @@ require "base64"
 
   def create
     @params = memo_params
-    if @params[:tagName]
+    if @params[:tagName] && !@params[:tagName].blank?
       @tagName = @params[:tagName]
       @params.delete(:tagName)
     end

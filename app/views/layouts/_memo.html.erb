@@ -24,7 +24,7 @@
           />
         <% end %>
         <% memo.tag_ids.each do |tagid| %>
-          <%= link_to "#" + (Tag.find(tagid)).name, search_memos_path + "/" + tagid.to_s %>
+          <%= link_to "#" + (Tag.find(tagid)).name, memos_path(query: tagid) %>
         <% end %>
       </div>
     </div>
@@ -49,21 +49,21 @@
           style="width: 100%;"
         >
           <%= button_to memo_path(memo), :action => "destroy", :method => :delete, :class => "button is-danger", data: { turbo_confirm: "Are you sure you want to delete?" } do %>
-            <i class="fa-regular fa-trash-can"></i>
+            <i class="fa-regular fa-trash-can fa-fw fa-2x"></i>
           <% end %>
           <div>
             <button class="button saveMemo" style="background-color:var(--ctp-frappe-blue);color:black;" hx-put="<%= memo_path(memo.id) %>" >
-              <i class="fa-regular fa-floppy-disk"></i>
+              <i class="fa-regular fa-floppy-disk fa-fw fa-2x"></i>
             </button>
             <button
               class="button cancelEdit"
               style="background-color:var(--ctp-frappe-maroon);color:black;"
-            ><i class="fa-solid fa-ban"></i></button>
+            ><i class="fa-solid fa-ban fa-fw fa-2x"></i></button>
           </div>
           <button
             class="editMemo button"
             style="background-color:var(--ctp-frappe-peach);color:black;"
-          ><i class="fa-regular fa-pen-to-square"></i></button>
+          ><i class="fa-regular fa-pen-to-square fa-fw fa-2x"></i></button>
         </div>
       </div>
     </footer>

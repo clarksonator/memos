@@ -8,7 +8,7 @@
   </script>
   <div class="memoIndex">
     <%= render "layouts/new" %>
-    <% current_user.memos.each do |memo| %>
+    <% @memos.each do |memo| %>
       <%= render partial: "layouts/memo", object: memo %>
     <% end %>
   </div>

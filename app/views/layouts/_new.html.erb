@@ -12,17 +12,19 @@
         <div class="file" style="margin-bottom: 0">
           <label class="file-label">
             <%= form.file_field :attachment, accept: "image/png,image/jpg,image/jpeg", class: "file-input" %>
-            <span class="file-cta" style="background-color: var(--ctp-frappe-green)">
-              <i class="fas fa-upload" style="color: black"></i>
-            </span>
+              <span class="file-cta" style="background-color: var(--ctp-frappe-green); display: inline-block; margin: 0.25em; border: 1px solid silver; border-radius: 0.25em; padding: .25em 0.5em">
+                <i class="fa-solid fa-upload fa-fw fa-2x" style="color: black"></i>
+              </span>
           </label>
         </div>
+        <div class="right">
         <%= button_tag type: 'button', class: "button", style: "background-color: var(--ctp-frappe-mauve); color: black;", onclick: "addTag();" do %>
-          <i class="fa-regular fa-hashtag" aria-hidden="true"></i>
+          <i class="fa-solid fa-hashtag fa-fw fa-2x" aria-hidden="true"></i>
         <% end %>
-        <%= button_tag type: 'submit', class: "button right is-save" do %>
-          <i class="fa-regular fa-floppy-disk" aria-hidden="true"></i>
+        <%= button_tag type: 'submit', class: "button is-save" do %>
+          <i class="fa-solid fa-floppy-disk fa-fw fa-2x" aria-hidden="true"></i>
         <% end %>
+        </div>
       </div>
     </footer>
   </div>

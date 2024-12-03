@@ -3,13 +3,14 @@ Rails.application.routes.draw do
   devise_for :users
   root "memos#index"
   get "/settings", to: "settings#index"
+  get "/search/(:id)", to: "memos#search"
   resources :memos do
     collection do
       get "search"
+      get "(:id)", action: :index
     end
   end
   get "/memos/search/(:id)", to: "memos#search"
-  get "/search/(:id)", to: "memos#search"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
