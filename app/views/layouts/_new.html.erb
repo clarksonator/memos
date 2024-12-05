@@ -49,6 +49,7 @@
   </div>
   <script>
     function addTag(elem) {
+      $("#addTagModal").find("#memo_tagName").val($(elem).attr("data-tags"));
       $("#addTagModal").addClass("is-active");
     }
   </script>

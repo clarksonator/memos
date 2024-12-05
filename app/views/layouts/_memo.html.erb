@@ -23,8 +23,9 @@
             onclick="openModal();"
           />
         <% end %>
-        <% memo.tag_ids.each do |tagid| %>
-          <%= link_to "#" + (Tag.find(tagid)).name, memos_path(query: tagid) %>
+        <% memo.tag_ids.each do |tagid|
+          tag = Tag.find(tagid) %>
+          <%= link_to "#" + tag.name, memos_path(query: tagid) %>
         <% end %>
       </div>
     </div>
@@ -42,23 +43,20 @@
     </div>
     <footer class="card-footer">
       <div class="card-footer-item" style="width: 100%">
-        <div
-          class="
-            is-flex is-justify-content-space-between is-align-items-center
-          "
-          style="width: 100%;"
-        >
-          <%= button_to memo_path(memo), :action => "destroy", :method => :delete, :class => "button is-danger", data: { turbo_confirm: "Are you sure you want to delete?" } do %>
+        <div class="is-flex is-justify-content-space-between is-align-items-center" style="width: 100%;" >
+          <%= button_to memo_path(memo), :action => "destroy", :method => :delete, :class => "button is-danger destroyMemo", data: { turbo_confirm: "Are you sure you want to delete?" } do %>
             <i class="fa-regular fa-trash-can fa-fw fa-2x"></i>
           <% end %>
+            <button class="button cancelEdit" style="background-color:var(--ctp-frappe-maroon);color:black;">
+              <i class="fa-solid fa-ban fa-fw fa-2x"></i>
+            </button>
           <div>
+            <%= button_tag type: 'button', class: "button editTags", style: "background-color: var(--ctp-frappe-mauve); color: black;", onclick: "addTag(this);", data: { tags: memo.get_tags} do %>
+              <i class="fa-solid fa-hashtag fa-fw fa-2x" aria-hidden="true"></i>
+            <% end %>
             <button class="button saveMemo" style="background-color:var(--ctp-frappe-blue);color:black;" hx-put="<%= memo_path(memo.id) %>" >
               <i class="fa-regular fa-floppy-disk fa-fw fa-2x"></i>
             </button>
-            <button
-              class="button cancelEdit"
-              style="background-color:var(--ctp-frappe-maroon);color:black;"
-            ><i class="fa-solid fa-ban fa-fw fa-2x"></i></button>
           </div>
           <button
             class="editMemo button"

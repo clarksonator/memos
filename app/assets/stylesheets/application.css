@@ -123,8 +123,13 @@ body {
 
 .updateMemo,
 .saveMemo,
-.cancelEdit {
+.cancelEdit,
+.editTags {
   display: none;
+}
+
+.cancelEdit {
+  margin-right: auto;
 }
 
 .memoIndex {

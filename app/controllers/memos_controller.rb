@@ -2,12 +2,12 @@ require "base64"
 
  class MemosController < ApplicationController
   def index
-    @tagid = params[:query]
-    if @tagid
-      puts @tagid
-      @memos = current_user.memos.find_by_sql("SELECT * from memos INNER JOIN memos_tags on memos.id = memos_tags.memo_id where tag_id = " + @tagid)
+    @tid = params[:query]
+    if @tid
+      #@memos = current_user.memos.find_by_sql("select memos.id,memos.body,memos.created_at,memos.attachment from memos inner join memos_tags on memos.id = memos_tags.memo_id where tag_id = #{@tid} order by memos.created_at desc")
+      @memos = Memo.filter_by_tag @tid
     else
-      @memos = current_user.memos 
+      @memos = current_user.memos
     end
   end
 
@@ -43,10 +43,14 @@ require "base64"
 
     if @memo.save
       if @tagName
-        # @tag = Tag.new(name: @tagName)
-        # @tag.save
-        # @memo.tags << @tag
-        @memo.tags.create!({ name: @tagName })
+        @tagName.split(",").each do |tag|
+          tagRecord = Tag.where(name: @tagName)
+          if tagRecord.one?
+            @memo.tags << tagRecord
+          else
+            @memo.tags.create!({ name: tag })
+          end
+        end
       end
 
       redirect_to action: "index"

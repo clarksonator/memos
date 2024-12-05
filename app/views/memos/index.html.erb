@@ -25,7 +25,9 @@
 
     function setupClicks() {
   $(".editMemo").on("click", function() {
+    $(this).parent().find(".destroyMemo").hide();
     $(this).parent().find(".saveMemo").show();
+    $(this).parent().find(".editTags").show();
     $(this).parent().find(".cancelEdit").show();
     var card = $(this).parents(".card");
     card.children(".viewMemo").hide();
@@ -33,7 +35,10 @@
     $(this).hide();
   });
   $(".cancelEdit").on("click", function() {
+    $(this).parent().find(".destroyMemo").show();
     $(this).parent().find(".saveMemo").hide();
+    $(this).parent().find(".editTags").hide();
+    $(this).parent().find(".cancelEdit").hide();
     $(this).parents().find(".editMemo").show();
     var card = $(this).parents(".card");
     card.children(".viewMemo").show();
