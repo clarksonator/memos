@@ -23,6 +23,7 @@ module Memos
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.assets.paths << Rails.root.join('node_modules')
+    config.assets.paths << Rails.root.join("node_modules")
+    config.time_zone = "Mountain Time (US & Canada)"
   end
 end

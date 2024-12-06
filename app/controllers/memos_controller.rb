@@ -2,10 +2,13 @@ require "base64"
 
  class MemosController < ApplicationController
   def index
-    @tid = params[:query]
+    @tid = params[:tid]
+    @date = params[:date]
     if @tid
       # @memos = current_user.memos.find_by_sql("select memos.id,memos.body,memos.created_at,memos.attachment from memos inner join memos_tags on memos.id = memos_tags.memo_id where tag_id = #{@tid} order by memos.created_at desc")
       @memos = Memo.filter_by_tag @tid
+    elsif @date
+      @memos = Memo.filter_by_date(@date).order("created_at")
     else
       @memos = current_user.memos
     end

@@ -16,10 +16,21 @@
       </div>
     </div>
     <div class="column">
+      <input type="date" data-display-mode="inline" id="memoDate" />
       <%= tag_cloud %>
     </div>
   </div>
   <script>
+    bulmaCalendar.attach('[type="date"]');
+    var element = document.querySelector('#memoDate');
+    if (element) {
+      element.bulmaCalendar.on('select', function(datepicker) {
+        console.log(datepicker.data.value());
+        var url = "<%= memos_path %>?date=" + datepicker.data.value()
+        console.log(url);
+        window.location.href = url;
+      });
+    }
     document.body.addEventListener('htmx:configRequest', function(evt) {
       event.detail.headers['X-CSRF-Token'] = $('meta[name="csrf-token"]').attr('content');
     })

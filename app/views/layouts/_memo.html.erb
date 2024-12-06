@@ -25,7 +25,7 @@
         <% end %>
         <% memo.tag_ids.each do |tagid|
           tag = Tag.find(tagid) %>
-          <%= link_to "#" + tag.name, memos_path(query: tagid) %>
+          <%= link_to "#" + tag.name, memos_path(tid: tagid) %>
         <% end %>
       </div>
     </div>
@@ -44,11 +44,7 @@
     <footer class="card-footer">
       <div class="card-footer-item" style="width: 100%">
         <div
-          class="
-            is-flex is-justify-content-space-between is-align-items-center
-          "
-          style="width: 100%;"
-        >
+          class="is-flex is-justify-content-space-between is-align-items-center" style="width: 100%;">
           <%= button_to memo_path(memo), :action => "destroy", :method => :delete, :class => "button is-danger destroyMemo", data: { turbo_confirm: "Are you sure you want to delete?" } do %>
             <i class="fa-regular fa-trash-can fa-fw fa-2x"></i>
           <% end %>
