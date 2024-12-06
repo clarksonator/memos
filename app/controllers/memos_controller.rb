@@ -4,7 +4,7 @@ require "base64"
   def index
     @tid = params[:query]
     if @tid
-      #@memos = current_user.memos.find_by_sql("select memos.id,memos.body,memos.created_at,memos.attachment from memos inner join memos_tags on memos.id = memos_tags.memo_id where tag_id = #{@tid} order by memos.created_at desc")
+      # @memos = current_user.memos.find_by_sql("select memos.id,memos.body,memos.created_at,memos.attachment from memos inner join memos_tags on memos.id = memos_tags.memo_id where tag_id = #{@tid} order by memos.created_at desc")
       @memos = Memo.filter_by_tag @tid
     else
       @memos = current_user.memos
@@ -33,6 +33,17 @@ require "base64"
       @tagName = @params[:tagName]
       @params.delete(:tagName)
     end
+    m = nil
+    if @params[:body] && !@params[:body].blank?
+      m = /#(.*?) /.match(@params[:body])
+      if !m.nil? && m.size > 1
+        body = @params[:body]
+        for a in 1..m.size-1 do
+          body.gsub!("##{m[a]} ", "")
+        end
+        @params[:body] = body
+      end
+    end
     @memo = current_user.memos.build(@params)
 
     if @memo.attachment
@@ -42,6 +53,17 @@ require "base64"
     end
 
     if @memo.save
+      if !m.nil? && m.size > 1
+        for a in 1..m.size-1 do
+          next if m[a].blank?
+          tagRecord = Tag.where(name: m[a])
+          if tagRecord.one?
+            @memo.tags << tagRecord
+          else
+            @memo.tags.create!({ name: m[a] })
+          end
+        end
+      end
       if @tagName
         @tagName.split(",").each do |tag|
           tagRecord = Tag.where(name: @tagName)

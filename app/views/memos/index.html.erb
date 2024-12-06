@@ -6,11 +6,18 @@
                 .classList.add("is-active");
         }
   </script>
-  <div class="memoIndex">
-    <%= render "layouts/new" %>
-    <% @memos.each do |memo| %>
-      <%= render partial: "layouts/memo", object: memo %>
-    <% end %>
+  <div class="columns">
+    <div class="column is-four-fifths">
+      <div class="memoIndex">
+        <%= render "layouts/new" %>
+        <% @memos.each do |memo| %>
+          <%= render partial: "layouts/memo", object: memo %>
+        <% end %>
+      </div>
+    </div>
+    <div class="column">
+      <%= tag_cloud %>
+    </div>
   </div>
   <script>
     document.body.addEventListener('htmx:configRequest', function(evt) {

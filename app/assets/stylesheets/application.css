@@ -133,9 +133,10 @@ body {
 }
 
 .memoIndex {
-  margin: 0 auto;
   width: 800px;
   height: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .memoIndex > * {
@@ -144,6 +145,10 @@ body {
 
 .card-footer-item {
   border-inline-end: none !important;
+}
+
+.columns {
+  margin: 0 auto;
 }
 
 .highlight table td {
