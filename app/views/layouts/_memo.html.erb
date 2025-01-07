@@ -25,7 +25,7 @@
         <% end %>
         <% memo.tag_ids.each do |tagid|
           tag = Tag.find(tagid) %>
-          <%= link_to "#" + tag.name, memos_path(tid: tagid) %>
+          <%= link_to "#" + tag.name, root_path(tid: tagid) %>
         <% end %>
       </div>
     </div>

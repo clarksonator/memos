@@ -1,0 +1,16 @@
+services:                    
+  web:
+    image: ror-memos
+    build:                                                                                                                 
+      context: .       
+      dockerfile: Dockerfile                                                                                               
+    volumes:
+      - .:/rails:cached                                            
+    working_dir: /rails                                                                                                     
+    command: sleep infinity
+    environment:
+      # install gems to the folder with project files
+      - BUNDLE_PATH=vendor/bundle
+    ports:
+      # expose port 3000 to the outer world
+      - '3000:3000'

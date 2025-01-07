@@ -1,7 +1,7 @@
 <div>
   <ul>
     <% for tag in @tags %>
-      <li><%= link_to "#" + tag.name, memos_path(query: tag.id) %></li>
+      <li><%= link_to "#" + tag.name, root_path(tid: tag.id) %></li>
     <% end %>
   </ul>
 </div>

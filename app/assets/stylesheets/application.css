@@ -48,7 +48,7 @@ body {
   height: 100%;
 }
 
-.card-content .content h2 {
+.card-content .content :is(h1, h2, h3, h4, h5, h6) {
   color: var(--ctp-frappe-flamingo);
 }
 
@@ -149,6 +149,76 @@ body {
 
 .columns {
   margin: 0 auto;
+}
+
+.datetimepicker-wrapper,
+.datetimepicker,
+.datepicker-date {
+  background-color: var(--ctp-frappe-base) !important;
+}
+
+.datetimepicker-wrapper {
+  margin-bottom: 20px;
+}
+
+.date-item {
+  color: var(--ctp-frappe-text) !important;
+}
+
+.is-today {
+  color: var(--ctp-frappe-flamingo) !important;
+}
+
+.date-item.is-active {
+  background-color: var(--ctp-frappe-overlay0) !important;
+  color: var(--ctp-frappe-flamingo) !important;
+}
+
+.has-text-warning {
+  color: var(--ctp-frappe-yellow) !important;
+}
+
+.has-text-danger {
+  color: var(--ctp-frappe-red) !important;
+}
+
+.datepicker-nav {
+  background-color: var(--ctp-frappe-sapphire) !important;
+}
+
+.datepicker-nav-month,
+.datepicker-nav-previous,
+.datepicker-nav-next,
+.datepicker-nav-year {
+  color: var(--ctp-frappe-mantle) !important;
+}
+
+.datetimepicker-selection-day {
+  color: var(--ctp-frappe-peach) !important;
+}
+
+.datetimepicker-selection-month {
+  color: var(--ctp-frappe-mauve) !important;
+}
+
+.datetimepicker-selection-weekday {
+  color: var(--ctp-frappe-maroon) !important;
+}
+
+a:link {
+  color: var(--ctp-frappe-blue);
+}
+
+a:visited {
+  color: var(--ctp-frappe-lavender);
+}
+
+a:hover {
+  color: var(--ctp-frappe-sky);
+}
+
+a:active {
+  color: var(--ctp-frappe-blue);
 }
 
 .highlight table td {
